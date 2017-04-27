@@ -11,7 +11,7 @@ Problem Statement : Find out maximum saving that can be achieved in a given grap
 */
 
 // Importing required libraries
-
+package minimalNetworks
 import java.io.*;
 import java.util.*;
 import java.math.*;
@@ -19,7 +19,7 @@ import java.math.*;
 class MST
 {
 	private static String inputFile = "input.txt";
-	private static int verticesNumber = 7;
+	private static int verticesNumber = 40;
 	static long total = 0;
 
 	static class Edge
@@ -37,12 +37,12 @@ class MST
 
 
 	// Union Rank Data-Structure Class 
-	static class unionRank
+	static class UnionRank
 	{
 		int[] setArray;
 
 	// Create n sets
-		public unionRank(int n)
+		public UnionRank(int n)
 		{
 			setArray = new int[n];
 
@@ -76,24 +76,35 @@ class MST
 	}
 
 	// Take input from the given file and return a list of edges
-	public LinkedList input()
-	{
-		Scanner scanner = new Scanner(System.in);
+	public LinkedList input(String fileName)
+{	
+		Scanner scanner = null;
+		try{
+			File file = new File(fileName);
+			scanner = new Scanner(file);
+}
+	catch(Exception e)
+{
+	System.err.println("Please check that the input file exixts in the current directory");
+	System.exit(-1);
+}
 		String temp;
 		String[] vertices;
 		LinkedList edges = new LinkedList<Edge>(); 
 		for(int i = 0 ; i < verticesNumber ; i++)
 		{
 			temp = scanner.nextLine();
-			vertices = temp.split(",");
+			vertices = temp.split(",");	
+
 			for(int j = 0 ; j < verticesNumber ; j++)
 			{
 				if(!vertices[j].equals("-"))
 				{
 					Edge current = new Edge(i,j,Long.parseLong(vertices[j])); 
 					edges.add(current);
+					
 
-					total+=current.weight;
+					total = total + current.weight;
 
 				}
 
@@ -102,10 +113,18 @@ class MST
 		return edges;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)throws Exception {
 		MST object = new MST();
-		LinkedList edges = object.input();
-
+		if(args.length != 1)
+		{
+			System.err.println("Run the program via following command : \njava MST <input_file>");
+			System.exit(1);
+		}
+		String fileName = args[0];
+		LinkedList edges = object.input(fileName);
+		
+		
+		
 
 		// Sort the input edges according to their weights
 
@@ -125,9 +144,10 @@ class MST
 		// addedEdges will contain all the edges that are included in the Minimum Spanning Tree
 		LinkedList addedEdges = new LinkedList<Edge>();
 		long sum = 0;
-		unionRank obj = new unionRank(verticesNumber);
+		UnionRank obj = new UnionRank(verticesNumber);
 		Iterator it = edges.iterator();
 		int addedCount = 0;
+		
 		while(it.hasNext() && addedCount <= (verticesNumber-1))
 		{
 			Edge current = (Edge)it.next();
@@ -139,9 +159,10 @@ class MST
 				addedEdges.add(current);
 				addedCount++;
 				obj.union(parent1,parent2);
-				sum=+current.weight;
+				sum = sum+current.weight;
 			}
 		}
-		System.out.println("weight:"+(total-sum));
+
+		System.out.println("Maximum saving achieved:"+(total/2-sum));
 	}
 }

@@ -1,3 +1,5 @@
+package minimalNetworks;
+
 class unionRank
 {
 	int[] setArray;
