@@ -1,11 +1,25 @@
+/* Project Euler: Minimum Spanning Tree
+
+Problem Statement : Find out maximum saving that can be achieved in a given graph with weighted edges.
+
+	Author : Abhay Singh
+	Designation : Student, IIT Mandi
+	Time Complexity : O(n2)
+	Space Complexity : O(n2)
+
+
+*/
+
+// Importing required libraries
+
 import java.io.*;
 import java.util.*;
 import java.math.*;
 
 class MST
 {
-	private static String inputFile = "p107_network.txt";
-	private static int verticesNumber = 40;
+	private static String inputFile = "input.txt";
+	private static int verticesNumber = 7;
 	static long total = 0;
 
 	static class Edge
@@ -22,17 +36,17 @@ class MST
 
 
 
-	// Union Rank datastructure class 
+	// Union Rank Data-Structure Class 
 	static class unionRank
 	{
 		int[] setArray;
 
-	// create n sets
+	// Create n sets
 		public unionRank(int n)
 		{
 			setArray = new int[n];
 
-		// initial value of -1 represents that the set has no parent or it is the root
+		// Initial value of -1 represents that the set has no parent or it is the root.
 			for (int i = 0; i < n ; i++) {
 				setArray[i] = -1;
 			}
@@ -47,7 +61,7 @@ class MST
 		}
 
 
-		// This union function does not use path compression and is not union by rank
+		// This union function searches for the parent of vertices in consideration and if set parent of one node to another, if they do not have same parent.
 		void union(int set1, int set2)
 		{
 			int parent1 = this.find(set1);
@@ -93,7 +107,7 @@ class MST
 		LinkedList edges = object.input();
 
 
-		// sort the input edges according to their weights
+		// Sort the input edges according to their weights
 
 		Collections.sort(edges, new Comparator<Edge>()
 		{
