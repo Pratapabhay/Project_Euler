@@ -7,7 +7,7 @@
  * @author Abhay Singh
  */
 
-package minimalNetworks;
+package MinimalNetworks;
 import java.io.*;
 import java.util.*;
 import java.math.*;

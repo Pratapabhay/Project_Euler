@@ -7,7 +7,7 @@
  * @author Abhay Singh
  */
 
-package minimalNetworks;
+package MinimalNetworks;
 
 class Edge {
     int start, end;
