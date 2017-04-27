@@ -16,7 +16,7 @@ Download the complete source code in one folder and run the following commands:
 
 Compile the code : javac -d . *.java
 
-Run the source file : java minimalNetworks/MST p107_network.txt
+Run the source file : java MinimalNetworks/MST p107_network.txt
 
 
 
